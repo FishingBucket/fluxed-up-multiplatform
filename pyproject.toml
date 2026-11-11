@@ -1,0 +1,54 @@
+[project]
+name = "fluxed-up-multiplatform"
+version = "0.1.0"
+description = "fluxed-up-multiplatform is an opinionated Python framework to work with various chat applications."
+readme = "README.rst"
+requires-python = ">=3.14"
+license = "MIT"
+keywords = [
+    "fluxer", "discord", "api"
+]
+import-namespaces = [
+    "fluxed_up"
+]
+
+dependencies = [
+    "aiohttp>=3.14.5",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+    "sphinx>=9.2.0",
+]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.format]
+line-ending = "lf"
+docstring-code-format = true
+
+[tool.mypy]
+modules = "fluxed_up"
+follow_untyped_imports = true
+disallow_any_decorated = true
+disallow_any_explicit = true
+check_untyped_defs = true
+implicit_optional = true
+allow_redefinition = true
+strict_equality = true
+strict = true
+no_redef = false
+exclude = ["docs"]
+
+[tool.pytest]
+testpaths = [
+    "tests"
+]
+pythonpath = [
+    "."
+]
