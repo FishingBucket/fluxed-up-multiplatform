@@ -25,7 +25,7 @@ class Snowflake(ABC):
         .. trait:: ord
             .. type:: partial
             .. based-on:: raw ID
-            Errors on mismatched type or platform.
+            Undefined on mismatched type or platform.
         .. trait:: repr
             .. type:: construction
         .. trait:: str
@@ -81,22 +81,26 @@ class Snowflake(ABC):
         return hash((type(self), self.id, self.platform))
 
     def __eq__(self, other: object) -> bool:
-        return (
-            type(self) is type(other)
-            and isinstance(other, Snowflake)  # type hint for mypy
-            and self.id == other.id
-            and self.platform is other.platform
-        )
+        if not isinstance(other, Snowflake):
+            return NotImplemented
+
+        if type(self) is not type(other):
+            return NotImplemented
+
+        if self.platform is not other.platform:
+            return NotImplemented
+
+        return self.id == other.id
 
     def __lt__(self, other: object) -> bool:
         if not isinstance(other, Snowflake):
-            raise TypeError()
+            return NotImplemented
 
         if type(self) is not type(other):
-            raise TypeError()
+            return NotImplemented
 
         if self.platform is not other.platform:
-            raise TypeError()
+            return NotImplemented
 
         return self.id < other.id
 
