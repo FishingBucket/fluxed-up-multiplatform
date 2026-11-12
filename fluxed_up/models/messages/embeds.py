@@ -1,13 +1,15 @@
 __all__ = ["Embed"]
 
 
-from datetime import UTC, datetime
+from datetime import datetime
+from typing import Protocol
 
 from ...platform import Platform
 from ...utils import Color
+from ..model import Model
 
 
-class Embed:
+class Embed(Model, Protocol):
     """
     Represents an embed in a message. The capabilities of this class depends on the platform.
 
@@ -46,8 +48,6 @@ class Embed:
         The color of the Embed as a :class:`Color`. Optional.
     """
 
-    __slots__ = ("color", "description", "platform", "timestamp", "title", "url")
-
     title: str
     description: str
     url: str | None
@@ -65,15 +65,4 @@ class Embed:
         timestamp: datetime | float | None = None,
         color: Color | None = None,
     ) -> None:
-        self.title = title
-        self.description = description
-        self.url = url
-        self.timestamp = (
-            timestamp
-            if isinstance(timestamp, datetime)
-            else datetime.fromtimestamp(timestamp, UTC)
-            if timestamp is not None
-            else None
-        )
-        self.color = color
-        self.platform = platform
+        ...

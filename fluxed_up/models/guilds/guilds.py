@@ -1,5 +1,8 @@
 __all__ = ["Guild", "GuildID"]
 
+from typing import Protocol
+
+from ..model import Model
 from ..snowflake import Snowflake
 from ..user import UserID
 
@@ -10,13 +13,15 @@ class GuildID(Snowflake):
     """
 
 
-class Guild:
+class Guild(Model, Protocol):
     """
     Represents a guild, community, server, etc., on a platform.
 
     .. traits::
         .. trait:: eq
-            .. based-on: ID
+            .. based-on:: ID
+        .. trait:: repr
+            .. based-on:: ID
 
     Attributes
     ----------
@@ -25,9 +30,8 @@ class Guild:
     name : str
         The name of this Guild.
     owner_id : :class:`UserID`
+        The owner of this Guild.
     """
-
-    __slots__ = ("id", "name", "owner_id")
 
     id: GuildID
     name: str

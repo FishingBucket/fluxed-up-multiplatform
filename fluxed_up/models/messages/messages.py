@@ -1,5 +1,7 @@
-from ...platform import Platform
+from typing import Protocol
+
 from ..channels import ChannelID
+from ..model import Model
 from ..snowflake import Snowflake
 from ..user import User
 from .attachments import Attachment
@@ -57,13 +59,11 @@ class MessageRef:
     channel: ChannelID
 
     def __init__(self, message: MessageID, channel: ChannelID) -> None:
-        Platform.raise_if_unmatched(message.platform, channel.platform)
-
         self.message = message
         self.channel = channel
 
     def __repr__(self) -> str:
-        return f"MessageID({self.message!r}, {self.channel!r})"
+        return f"MessageRef({self.message!r}, {self.channel!r})"
 
     def __str__(self) -> str:
         return f"{self.channel}/{self.message}"
@@ -89,12 +89,14 @@ class MessageRef:
         return self.message.timestamp
 
 
-class Message:
+class Message(Model, Protocol):
     """
     Represents a message sent on a platform.
 
     .. traits::
         .. trait:: eq
+            .. based-on:: message ID, channel ID
+        .. trait:: repr
             .. based-on:: message ID, channel ID
 
     Attributes
@@ -113,8 +115,6 @@ class Message:
         A list of :class:`Attachment` objects that this Message has.
     """
 
-    __slots__ = ("attachments", "author", "channel_id", "content", "embeds", "id")
-
     id: MessageID
     channel_id: ChannelID
     author: User
@@ -122,8 +122,6 @@ class Message:
     embeds: list[Embed]
     attachments: list[Attachment]
 
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, Message) and self.id == other.id and self.channel_id == other.channel_id
 
     @property
     def ref(self) -> MessageRef:

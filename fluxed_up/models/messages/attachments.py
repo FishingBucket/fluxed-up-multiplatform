@@ -1,12 +1,14 @@
 __all__ = ["Attachment"]
 
 from datetime import datetime
+from typing import Protocol
 
 from ...platform import Platform
+from ..model import Model
 from .files import File  # noqa # used for the documentation
 
 
-class Attachment:
+class Attachment(Model, Protocol):
     """
     Represents an attachment in a returning message. The capabilities of this class depends on the platform.
 
@@ -28,8 +30,6 @@ class Attachment:
     platform : :class:`Platform`
         The platform this attachment is for.
     """
-
-    __slots__ = ("description", "expires", "filename", "platform", "title", "url")
 
     filename: str
     title: str | None

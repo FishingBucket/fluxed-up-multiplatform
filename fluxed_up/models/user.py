@@ -1,3 +1,6 @@
+from typing import Protocol
+
+from .model import Model
 from .snowflake import Snowflake
 
 __all__ = ["Discriminator", "User", "UserID"]
@@ -39,12 +42,20 @@ class Discriminator(int):
         return int(self) == 0
 
 
-class User:
+class User(Model, Protocol):
     """
     Represents a user's most basic information on a platform.
 
     Information like a user's bio, pronouns, and other aspects are not covered by this class.
     Instead, use :class:`UserProfile`.
+
+    .. traits::
+        .. trait:: eq
+            .. based-on:: ID
+        .. trait:: repr
+            .. based-on:: ID
+        .. trait:: str
+            The display name of the User.
 
     Attributes
     ----------
@@ -61,8 +72,6 @@ class User:
     system: bool
         Whether the User is a system user or not.
     """
-
-    __slots__ = ("bot", "discriminator", "global_name", "id", "system", "username")
 
     id: UserID
     username: str

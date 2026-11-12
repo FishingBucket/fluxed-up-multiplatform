@@ -60,7 +60,7 @@ class Platform(Enum):
         return hash("Platform." + self.name)
 
     @staticmethod
-    def raise_if_unmatched(*platforms: Platform) -> None:
+    def raise_if_unmatched(*platforms: Platform | None) -> None:
         """
         Checks for all inputs and raise an exception if one of the inputs is unmatched.
 
@@ -74,6 +74,7 @@ class Platform(Enum):
         :exc:`UnmatchedPlatforms`
             If even one of the platforms is unmatched.
         """
-        for a, b in itertools.pairwise(platforms):
+        without_none = tuple(platform for platform in platforms if platform)
+        for a, b in itertools.pairwise(without_none):
             if a != b:
-                raise UnmatchedPlatforms(*platforms)
+                raise UnmatchedPlatforms(*without_none)

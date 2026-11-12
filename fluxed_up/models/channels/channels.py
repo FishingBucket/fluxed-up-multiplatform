@@ -1,8 +1,10 @@
-__all__ = ["ChannelID"]
+__all__ = ["Channel", "ChannelID", "ChannelType"]
 
 from enum import Enum
+from typing import Protocol
 
 from ..guilds import GuildID
+from ..model import Model
 from ..snowflake import Snowflake
 
 
@@ -43,12 +45,14 @@ class ChannelType(Enum):
     """Fluxer-specific"""
 
 
-class Channel:
+class Channel(Model, Protocol):
     """
     Represents a channel or message-able room on a platform.
 
     .. traits::
         .. trait:: eq
+            .. based-on:: ID
+        .. trait:: repr
             .. based-on:: ID
 
     Attributes
@@ -69,16 +73,6 @@ class Channel:
     parent_id : :class:`ChannelID` | None
         The parent category of this Channel, if any. If this Channel is a thread, then this value is the parent channel.
     """
-
-    __slots__ = (
-        "description",
-        "guild_id",
-        "id",
-        "name",
-        "parent_id",
-        "position",
-        "type",
-    )
 
     id: ChannelID
     type: ChannelType

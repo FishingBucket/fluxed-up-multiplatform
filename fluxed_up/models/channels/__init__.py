@@ -1,3 +1,3 @@
-from .channels import ChannelID
+from .channels import Channel, ChannelID, ChannelType
 
-__all__ = ["ChannelID"]
+__all__ = ["Channel", "ChannelID", "ChannelType"]
