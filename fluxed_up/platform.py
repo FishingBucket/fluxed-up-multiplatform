@@ -4,7 +4,7 @@ import itertools
 from dataclasses import dataclass
 from enum import Enum
 
-from .exceptions import UnmatchedPlatforms
+from .exceptions import MismatchedPlatforms
 
 
 @dataclass
@@ -71,10 +71,10 @@ class Platform(Enum):
 
         Raises
         ------
-        :exc:`UnmatchedPlatforms`
+        :exc:`MismatchedPlatforms`
             If even one of the platforms is unmatched.
         """
         without_none = tuple(platform for platform in platforms if platform)
         for a, b in itertools.pairwise(without_none):
             if a != b:
-                raise UnmatchedPlatforms(*without_none)
+                raise MismatchedPlatforms(*without_none)

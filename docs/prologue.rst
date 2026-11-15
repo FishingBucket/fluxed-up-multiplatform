@@ -1,3 +1,4 @@
 .. |ABC| replace:: This class is an `ABC <https://docs.python.org/3/glossary.html#term-abstract-base-class>`_ and cannot be instantiated directly. To initiate this class, use one of its subclasses, which offers stronger type distinctions.
 .. |coro| replace:: This function is a `coroutine <https://docs.python.org/3/glossary.html#term-coroutine>`_.
 .. |colorsys| replace:: More information can be found in the `colorsys documentation <https://docs.python.org/3/library/colorsys.html>`_.
+.. |perms| replace:: This method requires the following permissions from the client to successfully execute:
