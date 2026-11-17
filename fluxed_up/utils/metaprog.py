@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 
 class APIFunc[**P, T](Protocol):
+    permissions: Permissions
     permissions_fluxer: Permissions
     permissions_discord: Permissions
     __call__: Callable[P, T]
@@ -48,6 +49,7 @@ def require_permissions[**P, T](
 
     def wrapper(func: Callable[P, T]) -> APIFunc[P, T]:
         new_func: APIFunc[P, T] = cast(APIFunc[P, T], func)
+        new_func.permissions = permissions
         new_func.permissions_fluxer = permissions_fluxer
         new_func.permissions_discord = permissions_discord
         return new_func
