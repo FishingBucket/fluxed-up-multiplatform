@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from ..exceptions import MissingPermissions  # noqa # used in docs
     from .channels.channels import Channel
 
-__all__ = ["Discriminator", "User", "UserID"]
+__all__ = ["Discriminator", "User", "UserID", "UserProfile"]
 
 
 class UserID(Snowflake):

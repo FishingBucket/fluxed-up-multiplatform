@@ -1,4 +1,4 @@
-__all__ = ["require_permissions"]
+__all__ = ["APIFunc", "require_permissions"]
 
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Protocol, cast
