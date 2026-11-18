@@ -170,3 +170,21 @@ class User(Model, Protocol):
             The opened DM with the User.
         """
         raise NotImplementedError
+
+    async def get_profile(self) -> UserProfile:
+        """
+        Gets the :class:`UserProfile` associated with the User.
+
+        |coro|
+
+        Returns
+        -------
+        :class:`UserProfile`
+            The obtained UserProfile.
+
+        Raises
+        ------
+        :exc:`MissingPermissions`
+            If the client cannot access the profile of the User.
+        """
+        raise NotImplementedError
