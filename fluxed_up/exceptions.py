@@ -1,10 +1,16 @@
 __all__ = [
+    "BadRequest",
+    "Forbidden",
+    "GenericHTTPException",
+    "GenericNotFound",
     "LibraryUseException",
     "MismatchedPlatforms",
     "MissingPermissions",
     "OperationException",
+    "RateLimited",
     "ResourceNotFound",
-    "UninitializableResource",
+    "Unauthorized",
+    "UninitializableResource"
 ]
 
 from abc import ABC
@@ -47,6 +53,15 @@ class OperationException(ABC, RuntimeError):
     """
 
 
+class GenericHTTPException(OperationException):
+    """
+    This exception is raised when an HTTP request fails, and the library does not know what it means.
+    """
+
+    def __init__(self, status: int, message: str) -> None:
+        super().__init__(f"Error {status}: {message}")
+
+
 class MissingPermissions(OperationException):
     """
     This exception is raised when the client does not have the permissions required to perform a certain action.
@@ -67,3 +82,35 @@ class ResourceNotFound(OperationException):
         super().__init__(
             f"The corresponding {resource_type} ({ident}) could not be found."
         )
+
+
+class BadRequest(OperationException):
+    """
+    This exception is raised when a request is malformed.
+    """
+
+
+class Unauthorized(OperationException):
+    """
+    This exception is raised when the client is unauthorized to perform a certain action.
+    """
+
+
+class Forbidden(OperationException):
+    """
+    This exception is raised when the client is forbidden to perform a certain action.
+    """
+
+
+class GenericNotFound(OperationException):
+    """
+    This exception is raised when the client cannot find a specific resource in a get operation.
+
+    This exception is raised before it gets processed by methods into :class:`ResourceNotFound`.
+    """
+
+
+class RateLimited(OperationException):
+    """
+    This exception is raised when the client is ratelimited.
+    """
