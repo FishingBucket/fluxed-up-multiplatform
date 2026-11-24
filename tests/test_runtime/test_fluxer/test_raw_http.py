@@ -1,13 +1,18 @@
-import pytest
+import os
 
-from fluxed_up import ChannelID, GuildID, Platform
+import pytest
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from fluxed_up import ChannelID, GuildID, Platform, Token
 from fluxed_up.runtime.common.http.client import HTTPClient
 from fluxed_up.runtime.common.http.route import Route, RouteMethod
 from fluxed_up.runtime.fluxer.http.ratelimit import FluxerRateLimiter
 
-AUTH = "Bot 1574307679239671808.w1RrwFIaX7mERYc2ZcJyOWi_jouKfr2654SzdptC1L0"
-CHANNEL_ID = ChannelID(1574308337212719107, Platform.Fluxer)
-GUILD_ID = GuildID(1574308337212719104, Platform.Fluxer)
+AUTH = f"Bot {Token.from_env().get_token()}"
+CHANNEL_ID = ChannelID(os.environ["CHANNEL"], Platform.Fluxer)
+GUILD_ID = GuildID(os.environ["GUILD"], Platform.Fluxer)
 
 
 @pytest.mark.asyncio
