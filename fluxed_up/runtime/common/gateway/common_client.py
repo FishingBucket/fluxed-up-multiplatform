@@ -8,6 +8,7 @@ __all__ = [
 
 import asyncio
 import json
+import random
 import sys
 import time
 from asyncio import Task
@@ -199,6 +200,8 @@ class CommonGatewayClient(BaseGatewayClient):
         self.latency = float("inf")
 
         async def heartbeat_loop() -> None:
+            await asyncio.sleep(random.random() * self.heartbeat_interval)
+
             try:
                 while True:
                     if not self.is_connected:
