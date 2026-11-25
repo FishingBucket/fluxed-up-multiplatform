@@ -35,6 +35,7 @@ source = "https://github.com/FishingBucket/fluxed-up-multiplatform"
 
 [dependency-groups]
 dev = [
+    "aioresponses-ng>=0.8.2",
     "mypy>=2.4.1",
     "pytest>=9.2.0",
     "pytest-asyncio>=1.5.0",
@@ -61,11 +62,3 @@ strict_equality = true
 strict = true
 no_redef = false
 exclude = ["docs"]
-
-[tool.pytest]
-testpaths = [
-    "tests"
-]
-pythonpath = [
-    "."
-]

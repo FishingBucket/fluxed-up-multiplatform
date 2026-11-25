@@ -27,11 +27,13 @@ class HTTPClient:
     def __init__(
         self,
         auth_string: str,
+        base_url: str,
         ratelimiter: RateLimiter,
         user_agent: str,
         max_retries: int = -1,
     ) -> None:
         self.auth_string = auth_string
+        self.base_url = base_url
         self.ratelimiter = ratelimiter
         self.max_retries = max_retries
         self.user_agent = user_agent
@@ -115,7 +117,7 @@ class HTTPClient:
                 try:
                     async with session.request(
                         route.meth,
-                        route.url,
+                        route.url(self.base_url),
                         json=json,
                         data=data,
                         params=params,
@@ -147,6 +149,14 @@ class HTTPClient:
                                     response.headers.get("Retry-After", 0.2)
                                 )
                                 self.ratelimiter.set_global(reset_after)
+                            continue
+
+                        if response.status >= 500:
+                            retry_delay = 1.0 + attempts * 1.5
+                            continue
+
+                        error = self.get_operation_exception_from_response(response)
+                        raise error
 
                 except ClientError, TimeoutError:
                     retry_delay = 1.0 + attempts * 1.5

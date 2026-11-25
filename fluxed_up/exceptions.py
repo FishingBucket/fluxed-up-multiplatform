@@ -1,6 +1,7 @@
 __all__ = [
     "BadRequest",
     "Forbidden",
+    "GenericGatewayException",
     "GenericHTTPException",
     "GenericNotFound",
     "LibraryUseException",
@@ -10,7 +11,7 @@ __all__ = [
     "RateLimited",
     "ResourceNotFound",
     "Unauthorized",
-    "UninitializableResource"
+    "UninitializableResource",
 ]
 
 from abc import ABC
@@ -60,6 +61,12 @@ class GenericHTTPException(OperationException):
 
     def __init__(self, status: int, message: str) -> None:
         super().__init__(f"Error {status}: {message}")
+
+
+class GenericGatewayException(OperationException):
+    """
+    This exception is raised when the gateway experiences errors.
+    """
 
 
 class MissingPermissions(OperationException):

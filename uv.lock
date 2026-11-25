@@ -116,6 +116,19 @@ wheels = [
 ]
 
 [[package]]
+name = "aioresponses-ng"
+version = "0.8.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiohttp" },
+    { name = "packaging" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/64/6f/6e317e805995b704894d9fc90ca63a87a567daf567e58db138659bf0abdc/aioresponses_ng-0.8.2.tar.gz", hash = "sha256:0ee168f7bccfcc7990a995fcabf42bb84dd42faafaa30497c7108b093214633f", size = 19394, upload-time = "2026-07-05T16:17:23.065Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a7/9d/4ad5aebee5771ce0822135b6daaa21b45f44043b15eb1b7afc2faaeabf1c/aioresponses_ng-0.8.2-py3-none-any.whl", hash = "sha256:9de28a0de0ad289c6317b56da2f81c846643e4b9c2fde32023c1509064fbb72d", size = 10760, upload-time = "2026-07-05T16:17:21.807Z" },
+]
+
+[[package]]
 name = "aiosignal"
 version = "1.4.0"
 source = { registry = "https://pypi.org/simple" }
@@ -350,6 +363,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "aioresponses-ng" },
     { name = "mypy" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
@@ -365,6 +379,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "aioresponses-ng", specifier = ">=0.8.2" },
     { name = "mypy", specifier = ">=2.4.1" },
     { name = "pytest", specifier = ">=9.2.0" },
     { name = "pytest-asyncio", specifier = ">=1.5.0" },
