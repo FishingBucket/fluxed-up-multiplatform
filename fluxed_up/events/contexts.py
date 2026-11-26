@@ -9,7 +9,7 @@ __all__ = [
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ..client.concrete_client import ConcreteClient
+    from ..client.client import ConcreteClient
     from ..models.guilds.guilds import Guild
     from ..models.messages.messages import Message
     from ..models.users import User, UserProfile

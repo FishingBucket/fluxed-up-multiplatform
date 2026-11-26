@@ -10,6 +10,7 @@ __all__ = [
     "OperationException",
     "RateLimited",
     "ResourceNotFound",
+    "ResourceNotInitialized",
     "Unauthorized",
     "UninitializableResource",
 ]
@@ -45,6 +46,17 @@ class MismatchedPlatforms(LibraryUseException):
     def __init__(self, *values: Platform) -> None:
         super().__init__(
             f"Requires platforms to be the same, instead got {', '.join(repr(v) for v in values)}."
+        )
+
+
+class ResourceNotInitialized(LibraryUseException):
+    """
+    This exception is raised when a resource is not initialized.
+    """
+
+    def __init__(self, resource_type: str) -> None:
+        super().__init__(
+            f"{resource_type} is not initialized and the program cannot continue."
         )
 
 

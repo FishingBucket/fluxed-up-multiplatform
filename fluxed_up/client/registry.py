@@ -1,8 +1,11 @@
 __all__ = ["BaseRegistry"]
 
 from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
 
-from .client import Client
+if TYPE_CHECKING:
+    from .client import Client
+    from .client_ghost import ClientGhost  # noqa # used in docs
 
 
 class BaseRegistry[T](ABC):
@@ -12,7 +15,7 @@ class BaseRegistry[T](ABC):
     Attributes
     ----------
     registered : set[int]
-        A set of :class:`Client` IDs that have been registered.
+        A set of :class:`ClientGhost` IDs that have been registered.
     registrations: list[T]
         A list of the items registered into this registry.
     """

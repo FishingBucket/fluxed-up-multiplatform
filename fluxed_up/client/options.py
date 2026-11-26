@@ -39,7 +39,7 @@ class SingleCache:
 
     max: int
     """
-    The maximum number of this resource type to keep in the cache.
+    The maximum number of this resource type to keep in the cache. Negative numbers indicate no limit.
     """
     strategy: CacheStrategy
     """
@@ -54,9 +54,7 @@ class CacheOptions:
     """
 
     messages = SingleCache(1024, CacheStrategy.all())
-    members = SingleCache(512, CacheStrategy.all())
-    users = SingleCache(2048, CacheStrategy.all())
-    guilds = SingleCache(
-        3072, CacheStrategy.all()
-    )  # we want this to ideally be able to cache the maximum a shard can hold, plus some more for explicit fetches.
-    channels = SingleCache(8192, CacheStrategy.all())
+    members = SingleCache(1024, CacheStrategy.ON_EXPLICIT_FETCH)
+    users = SingleCache(2048, CacheStrategy.ON_EXPLICIT_FETCH)
+    guilds = SingleCache(-1, CacheStrategy.all())
+    channels = SingleCache(-1, CacheStrategy.all())
